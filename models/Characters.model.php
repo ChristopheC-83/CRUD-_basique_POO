@@ -49,4 +49,14 @@ class CharactersManager extends Model
         $stmt->closeCursor();
         return $isCreate;
     }
+
+    public function deleteCharacterDB($id){ 
+        $req = "DELETE FROM characters WHERE id = :id";
+        $stmt = $this->getBDD()->prepare($req);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $isDelete = ($stmt->rowCount() > 0);
+        $stmt->closeCursor();
+        return $isDelete;
+    }
 }

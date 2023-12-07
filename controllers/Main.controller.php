@@ -41,13 +41,17 @@ class MainController
         }
     }
 
-    public function updateCharacter()
+    public function deleteCharacter($id)
     {
-        $characters = $this->charactersManager->getCharacters();
-        require_once("./views/update.view.php");
+        if ($this->charactersManager->deleteCharacterDB($id)) {
+            Tools::addAlertMessage("La suppression est effectuée", "alert-success");
+        } else {
+            Tools::addAlertMessage("a suppression a échoué", "alert-danger");
+        }
+        header("Location: ./home");
     }
 
-    public function deleteCharacter()
+    public function updateCharacter()
     {
         $characters = $this->charactersManager->getCharacters();
         require_once("./views/delete.view.php");

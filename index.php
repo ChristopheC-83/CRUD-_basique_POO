@@ -44,11 +44,12 @@ try {
                     $race = htmlentities($_POST['race']);
                     $health = htmlentities($_POST['health']);
                     $power = htmlentities($_POST['power']);
-                    $mainController->validationCreation($name,$race, $type,  $health, $power);
+                    $mainController->validationCreation($name, $race, $type,  $health, $power);
                 }
                 break;
             case "delete";
-                $controller->deleteCharacter();
+                $id = htmlentities($_POST['id']);
+                $mainController->deleteCharacter($id);
                 break;
 
             default:

@@ -26,7 +26,7 @@ ob_start();
                                 <input type="hidden" name='id' value=<?= $character['id'] ?>>
                                 <button class="btn btn-success ">Modify</button>
                             </form>
-                            <form action="./utilities/delete.php" method="POST">
+                            <form action="delete" method="POST">
                                 <input type="hidden" name='id' value=<?= $character['id'] ?>>
                                 <button class="btn btn-danger ">Delete</button>
                             </form>
