@@ -9,4 +9,11 @@ abstract class Tools
         print_r($array);
         echo "</pre>";
     }
+
+    public static function addAlertMessage($message, $type = 'alert-danger')
+    {
+        $_SESSION['alert']['message'] = $message;
+        $_SESSION['alert']['type'] = $type;
+    }
+
 }

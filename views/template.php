@@ -25,7 +25,17 @@
                 </button>
             </div>
         </div>
-       
+
+        <?php if (!empty($_SESSION['alert'])) : ?>
+            <div class="container mt-3 alert <?= $_SESSION['alert']['type'] ?>" role="alert">
+                <?= $_SESSION['alert']['message'] ?>
+            </div>
+
+        <?php
+            unset($_SESSION['alert']);
+        endif;
+        ?>
+
 
 
         <?= $content ?>
