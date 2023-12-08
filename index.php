@@ -2,14 +2,9 @@
 <?php
 
 session_start();
-// require_once("./controllers/Controller.php");
-// require_once("./models/Users.model.php");
-// require_once("./models/Avis.model.php");
+// ici les session seront utilisées pour l'affichage des messages d'alerte
 
-// $controller = new Controller();
-// $usersManager = new UsersManager();
-// $avisManager = new CommentsManager();
-
+// Tools pour le showArray
 require_once("./controllers/Tools.controller.php");
 require_once("./controllers/Main.controller.php");
 $mainController = new MainController();
@@ -17,7 +12,7 @@ $mainController = new MainController();
 
 
 try {
-    if (!isset($_GET['page'])) {  // si pas d'url, on va sur la page d'accueil
+    if (!isset($_GET['page'])) {  // si pas d'url spécifique, on va sur la page d'accueil
         $mainController->homePage();
     } else {
         $url = explode("/", filter_var($_GET['page'], FILTER_SANITIZE_URL));   // on découpe l'url à chaque "/", on récupère les morceaux d'url pour nous diriger
@@ -32,7 +27,8 @@ try {
                 $mainController->createCharacter();
                 break;
 
-            case "validationCreation";
+            case "validationCreation";  // ce chemin ne mène à aucune vue, il sert à valider la création d'un nouveau personnage
+                // Tools::showArray($_POST);
                 if (empty($_POST['name']) || empty($_POST['type']) || empty($_POST['race']) || empty($_POST['health']) || empty($_POST['power'])) {
                     Tools::addAlertMessage("Veuillez remplir tous les champs.");
                     header("Location: ./create");
@@ -46,12 +42,12 @@ try {
                 }
                 break;
 
-            case "update";
+            case "update"; // on est sur la page de modification d'un personnage
                 $id = htmlentities($_POST['id']);
                 $mainController->updateCharacter($id);
                 break;
 
-            case "validationUpdate";
+            case "validationUpdate"; // ce chemin ne mène à aucune vue, il sert à valider la modification d'un personnage
                 // Tools::showArray($_POST);
                 if (empty($_POST['name']) || empty($_POST['type']) || empty($_POST['race']) || empty($_POST['health']) || empty($_POST['power'])) {
                     Tools::addAlertMessage("Veuillez remplir tous les champs.");
@@ -66,10 +62,11 @@ try {
                     $mainController->validationUpdate($id, $name, $race, $type,  $health, $power);
                 }
                 break;
-            case "delete";
+
+            case "delete"; // ce chemin ne mène à aucune vue, il sert à supprimer un personnage
                 $id = htmlentities($_POST['id']);
                 if ($id == 1) {
-                    Tools::addAlertMessage("Vous ne pouvez pas supprimer Kiki");
+                    Tools::addAlertMessage("Vous ne pouvez pas supprimer kiki !");  // montre la différence entre une protection front et une back !
                     header("Location: ./home");
                 } else {
                     $mainController->deleteCharacter($id);
@@ -82,5 +79,5 @@ try {
     }
 } catch (Exception $e) {
     $error = $e->getMessage();
-    // include("./views/error.view.php");
+    include("./views/error.view.php");
 }
