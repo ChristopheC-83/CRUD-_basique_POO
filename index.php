@@ -4,12 +4,9 @@
 session_start();
 // ici les session seront utilisées pour l'affichage des messages d'alerte
 
-// Tools pour le showArray
-require_once("./controllers/Tools.controller.php");
+require_once("./controllers/Tools.controller.php"); // Tools pour le showArray
 require_once("./controllers/Main.controller.php");
 $mainController = new MainController();
-
-
 
 try {
     if (!isset($_GET['page'])) {  // si pas d'url spécifique, on va sur la page d'accueil
@@ -66,7 +63,7 @@ try {
             case "delete"; // ce chemin ne mène à aucune vue, il sert à supprimer un personnage
                 $id = htmlentities($_POST['id']);
                 if ($id == 1) {
-                    Tools::addAlertMessage("Vous ne pouvez pas supprimer kiki !");  // montre la différence entre une protection front et une back !
+                    Tools::addAlertMessage("Vous ne pouvez pas supprimer kiki !");  // montre la différence entre une protection front (outrepassable facilement) et une back (plus sécurisée, non accessible via la console de dev)
                     header("Location: ./home");
                 } else {
                     $mainController->deleteCharacter($id);

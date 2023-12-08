@@ -26,6 +26,8 @@
             </div>
         </div>
 
+
+        <!-- pour afficher les messagess -->
         <?php if (!empty($_SESSION['alert'])) : ?>
             <div class="container mt-3 alert <?= $_SESSION['alert']['type'] ?>" role="alert">
                 <?= $_SESSION['alert']['message'] ?>
@@ -37,7 +39,7 @@
         ?>
 
 
-
+        <!-- affiche le contenu spécifique de la page sélectionnée -->
         <?= $content ?>
 
 

@@ -5,6 +5,7 @@ class CharactersManager extends Model
 {
     public function getCharacters()
     {
+        //  récupération de tous les personnages
         $req = "SELECT * FROM characters";
         $stmt = $this->getBDD()->prepare($req);
         $stmt->execute();
@@ -15,6 +16,7 @@ class CharactersManager extends Model
 
     public function getOneCharacter($id)
     {
+        //  récupération d'un personnage dont l'id est passé en paramètre
         $req = "SELECT * FROM characters WHERE id = :id";
         $stmt = $this->getBDD()->prepare($req);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -25,6 +27,7 @@ class CharactersManager extends Model
     }
     public function getTypes()
     {
+        // récupération de tous les types et triés par ordre alphabétique
         $req = "SELECT * FROM types ORDER BY type asc";
         $stmt = $this->getBDD()->prepare($req);
         $stmt->execute();
@@ -35,6 +38,7 @@ class CharactersManager extends Model
 
     public function getRaces()
     {
+        //  récupération de toutes les races et triées par ordre alphabétique
         $req = "SELECT * FROM races ORDER BY race asc";
         $stmt = $this->getBDD()->prepare($req);
         $stmt->execute();
@@ -45,6 +49,7 @@ class CharactersManager extends Model
 
     public function createCharacterDB($name, $race, $type,  $health, $power, $avatar)
     {
+        // création d'un personnage dans la base de données
         // echo $name, $race, $type, "<br>", $health, $power, $avatar;
         $req = "INSERT INTO characters (name, race, type,  health, power, avatar) 
             VALUES (:name, :race,:type,  :health, :power, :avatar)";
@@ -63,6 +68,7 @@ class CharactersManager extends Model
 
     public function deleteCharacterDB($id)
     {
+        // suppression d'un personnage dont l'id est passé en paramètre
         $req = "DELETE FROM characters WHERE id = :id";
         $stmt = $this->getBDD()->prepare($req);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -74,6 +80,7 @@ class CharactersManager extends Model
 
     public function validationUpdateDB($id, $name,  $race, $type, $health, $power, $avatar)
     {
+        // modification d'un personnage dont l'id est passé en paramètre
         $req = "UPDATE characters SET
         name=:name, 
         type=:type,

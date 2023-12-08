@@ -20,7 +20,7 @@ abstract class Model
                 "mysql:host=" . mysql . ";dbname=" . dbname,
                 user,
                 mdpbd,
-                [PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING] //ou ERRMODE_EXCEPTION à la place de WARNING
+                [PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING]
             );
         } catch (PDOException $e) {
             echo "Erreur : " . $e->getMessage();
@@ -28,7 +28,7 @@ abstract class Model
         return self::$pdo;
     }
 
-    // récupération de la connexion à la DB après test si déjà connecté. si non, on connecte
+    // récupération de la connexion à la DB. Ne se connecte que s'il n'y a pas de connexion déjà en cours.
     protected function getBDD()
     {
         if (self::$pdo === null) {

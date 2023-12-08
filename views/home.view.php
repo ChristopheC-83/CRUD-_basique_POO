@@ -3,13 +3,14 @@ $title = "Accueil";
 ob_start();
 ?>
 <div class="container pt-3">
-    <h3 class="text-center bg-dark text-light p-4 rounded-2 shadow mb-2">Liste des personnages</h3>
+    <h3 class="text-center bg-dark text-light p-4 rounded-2 shadow mb-2">Characters List</h3>
 </div>
 <div class=" flex-grow-1 d-flex container">
 
 
     <div class="row container mx-auto w-100">
 
+        <!-- les characters sont récupérés du Controller -->
         <?php foreach ($characters as $character) : ?>
 
             <div class="col-3 mb-3">
