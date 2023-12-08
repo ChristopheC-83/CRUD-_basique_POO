@@ -30,9 +30,7 @@ ob_start();
                             <form action="delete" method="POST">
                                 <input type="hidden" name='id' value=<?= $character['id'] ?>>
                                 <button class="btn btn-danger 
-                                <?= ($character['name'] === "kiki") ? "disabled" : '' ?>
-                                    
-                                ">Delete</button>
+                                <?= ($character['name'] === "kiki") ? "disabled" : '' ?>">Delete</button>
                             </form>
                         </div>
                     </div>

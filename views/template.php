@@ -45,6 +45,8 @@
             <h3 class=" container text-center text-light">Footer by Kiki</h3>
         </footer>
 
+        <script src="./public/javascript/app.js"></script>
+
 </body>
 
 </html>
