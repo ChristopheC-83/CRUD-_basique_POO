@@ -51,10 +51,25 @@ class MainController
         header("Location: ./home");
     }
 
-    public function updateCharacter()
+    public function updateCharacter($id)
     {
-        $characters = $this->charactersManager->getCharacters();
-        require_once("./views/delete.view.php");
+        $character = $this->charactersManager->getOneCharacter($id);
+        $types = $this->charactersManager->getTypes();
+        $races = $this->charactersManager->getRaces();
+        require_once("./views/update.view.php");
+    }
+
+    public function validationUpdate($id, $name, $race, $type,  $health, $power) {
+        $avatar = $type . ".jpg";
+        if (
+            $this->charactersManager->validationUpdateDB($id, $name,  $race, $type, $health, $power, $avatar)
+        ) {
+            Tools::addAlertMessage("Le personnage " . $name . " a bien été mis à jour.", "alert-success");
+            header("Location: ./home");
+        } else {
+            Tools::addAlertMessage("Le personnage " . $name . " n'a pas été mis à jour.", "alert-danger");
+            header("Location: ./create");
+        }
     }
 
     public function errorPage()

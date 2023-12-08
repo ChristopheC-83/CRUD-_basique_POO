@@ -12,6 +12,17 @@ class CharactersManager extends Model
         $stmt->closeCursor();
         return $infos;
     }
+
+    public function getOneCharacter($id)
+    {
+        $req = "SELECT * FROM characters WHERE id = :id";
+        $stmt = $this->getBDD()->prepare($req);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $character = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return $character;
+    }
     public function getTypes()
     {
         $req = "SELECT * FROM types ORDER BY type asc";
@@ -50,7 +61,8 @@ class CharactersManager extends Model
         return $isCreate;
     }
 
-    public function deleteCharacterDB($id){ 
+    public function deleteCharacterDB($id)
+    {
         $req = "DELETE FROM characters WHERE id = :id";
         $stmt = $this->getBDD()->prepare($req);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -58,5 +70,30 @@ class CharactersManager extends Model
         $isDelete = ($stmt->rowCount() > 0);
         $stmt->closeCursor();
         return $isDelete;
+    }
+
+    public function validationUpdateDB($id, $name,  $race, $type, $health, $power, $avatar)
+    {
+        $req = "UPDATE characters SET
+        name=:name, 
+        type=:type,
+        race=:race,
+        health=:health,
+        power=:power,
+        avatar=:avatar
+        WHERE id=:id
+        ";
+        $stmt = $this->getBDD()->prepare($req);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':type', $type, PDO::PARAM_STR);
+        $stmt->bindParam(':race', $race, PDO::PARAM_STR);
+        $stmt->bindParam(':health', $health, PDO::PARAM_INT);
+        $stmt->bindParam(':power', $power, PDO::PARAM_INT);
+        $stmt->bindParam(':avatar', $avatar, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $isUpdate = ($stmt->rowCount() > 0);
+        $stmt->closeCursor();
+        return $isUpdate;
     }
 }

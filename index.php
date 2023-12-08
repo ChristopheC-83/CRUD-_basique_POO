@@ -31,9 +31,7 @@ try {
             case "create";  // on est sur la page de creation d'un nouveau personnage
                 $mainController->createCharacter();
                 break;
-            case "update";
-                $controller->updateCharacter();
-                break;
+
             case "validationCreation";
                 if (empty($_POST['name']) || empty($_POST['type']) || empty($_POST['race']) || empty($_POST['health']) || empty($_POST['power'])) {
                     Tools::addAlertMessage("Veuillez remplir tous les champs.");
@@ -47,9 +45,35 @@ try {
                     $mainController->validationCreation($name, $race, $type,  $health, $power);
                 }
                 break;
+
+            case "update";
+                $id = htmlentities($_POST['id']);
+                $mainController->updateCharacter($id);
+                break;
+
+            case "validationUpdate";
+                // Tools::showArray($_POST);
+                if (empty($_POST['name']) || empty($_POST['type']) || empty($_POST['race']) || empty($_POST['health']) || empty($_POST['power'])) {
+                    Tools::addAlertMessage("Veuillez remplir tous les champs.");
+                    header("Location: ./create");
+                } else {
+                    $id = htmlentities($_POST['id']);
+                    $name = htmlentities($_POST['name']);
+                    $type = htmlentities($_POST['type']);
+                    $race = htmlentities($_POST['race']);
+                    $health = htmlentities($_POST['health']);
+                    $power = htmlentities($_POST['power']);
+                    $mainController->validationUpdate($id, $name, $race, $type,  $health, $power);
+                }
+                break;
             case "delete";
                 $id = htmlentities($_POST['id']);
-                $mainController->deleteCharacter($id);
+                if ($id == 1) {
+                    Tools::addAlertMessage("Vous ne pouvez pas supprimer Kiki");
+                    header("Location: ./home");
+                } else {
+                    $mainController->deleteCharacter($id);
+                }
                 break;
 
             default:
